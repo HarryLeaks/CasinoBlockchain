@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="748.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Wallet.MineRewardController">
+
+   <children>
+
+      <VBox prefHeight="781.0" prefWidth="281.0" />
+
+      <Pane prefHeight="781.0" prefWidth="1040.0" style="-fx-background-color: black;">
+
+         <children>
+
+            <Pane layoutY="14.0" prefHeight="43.0" prefWidth="748.0" style="-fx-background-color: black;">
+
+               <children>
+      
+                  <Label layoutX="257.0" layoutY="-11.0" style="-fx-text-fill: WHITE;" text="Mine &amp; Reward">
+      
+                     <font>
+      
+                        <Font name="Century Gothic Bold" size="34.0" />
+      
+                     </font>
+      
+                  </Label>
+
+               </children>
+
+            </Pane>
+            <Button fx:id="mine" layoutX="351.0" layoutY="261.0" maxWidth="1.7976931348623157E308" minWidth="47.0" onAction="#mineration" mnemonicParsing="false" prefHeight="43.0" prefWidth="47.0" style="-fx-background-color: transparent;" text="">
+                                	<font>
+					                  <Font name="Calibri Bold" size="21.0" />
+					               </font>
+               <graphic>
+      				<ImageView fitHeight="50.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+      					<Image url="@../icons/send.png" />
+      				</ImageView>
+               </graphic>
+                                </Button>
+            <TableView fx:id="tableNotValidated" layoutX="37.0" layoutY="57.0" prefHeight="208.0" prefWidth="682.0">
+              <columns>
+                <TableColumn fx:id="SenderCol" prefWidth="220.79996871948242" text="Sender Public Key" />
+                <TableColumn fx:id="ReceiverCol" prefWidth="207.20001220703125" text="Reciever Public Key" />
+                  <TableColumn fx:id="AmountCol" prefWidth="127.2000732421875" text="Amount" />
+                  <TableColumn fx:id="TimeStampCol" prefWidth="128.79998779296875" text="TimeStamp" />
+              </columns>
+            </TableView>
+            <TableView fx:id="tableValidated" layoutX="37.0" layoutY="335.0" prefHeight="208.0" prefWidth="682.0">
+              <columns>
+                <TableColumn fx:id="ValidatedSenderCol" prefWidth="214.3999900817871" text="Sender Public Key" />
+                <TableColumn fx:id="ValidatedReceiverCol" prefWidth="220.00001525878906" text="Reciever Public Key" />
+                  <TableColumn fx:id="ValidatedAmountCol" prefWidth="131.20001220703125" text="Amount" />
+                  <TableColumn fx:id="ValidatedTimeStampCol" prefWidth="116.79998779296875" text="TimeStamp" />
+              </columns>
+            </TableView>
+         </children>
+
+      </Pane>
+
+   </children>
+
+</HBox>

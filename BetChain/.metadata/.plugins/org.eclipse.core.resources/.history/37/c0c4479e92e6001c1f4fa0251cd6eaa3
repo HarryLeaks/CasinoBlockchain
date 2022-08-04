@@ -1,0 +1,25 @@
+package DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class sendCoins {
+	private static final String sql = "";
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	int resultSet;
+	
+	public sendCoins(String senderAddr, String receiverAddr, float amount){
+		connection = ConnectionUtil.connectdb();
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, pass);
+			preparedStatement.setInt(2, id);
+			resultSet = preparedStatement.executeUpdate();
+			preparedStatement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,84 @@
+#app{
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.marker{
+    position: relative;
+    width: 60px;
+    left: 172px;
+    z-index: 2;
+}
+
+.wheel{
+    width: 100%;
+    height: 100%;
+    margin-top: -60px;
+}
+
+.button{
+    display: block;
+    width: 250px;
+    border-color: transparent;
+    margin-left: 60px;
+    margin-top: 10px auto;
+    cursor: pointer;
+}
+
+.parent {
+    border: 1px solid black;
+  }
+
+.bottom{
+    margin-top: 25px;
+}
+
+.child {
+    display: inline-block;
+    border: transparent;
+    vertical-align: top;
+  }
+
+.button:hover{
+    opacity: 0.5;
+}
+
+.blur{
+    animation: blur 10s;
+}
+
+.result{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 50px;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.red{
+    background-color: red
+}
+
+.green{
+    background-color: green;
+}
+
+@keyframes blur{
+    0%{
+        filter: blur(0.5px);
+    }
+    30%{
+        filter: blur(1px);
+    }
+    50%{
+        filter: blur(2px);
+    }
+    80%{
+        filter: blur(1.5px);
+    }
+    95%{
+        fitler: blur(0px);
+    }
+}

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="748.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Wallet.MarketController">
+
+   <children>
+
+      <Pane prefHeight="781.0" prefWidth="1040.0" style="-fx-background-color: black;">
+
+         <children>
+
+            <Pane layoutY="14.0" prefHeight="43.0" prefWidth="748.0" style="-fx-background-color: black;">
+
+               <children>
+      
+                  <Label layoutX="310.0" layoutY="-11.0" style="-fx-text-fill: WHITE;" text="MARKET">
+      
+                     <font>
+      
+                        <Font name="Century Gothic Bold" size="34.0" />
+      
+                     </font>
+      
+                  </Label>
+
+               </children>
+
+            </Pane>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="28.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/bitcoin.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="28.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/ethereum.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="201.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/matic.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="201.0" layoutY="148.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/Cardano.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="201.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/Dogecoin.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="28.0" layoutY="321.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/Shiba.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="28.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/tron.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="195.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/XRP.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="201.0" layoutY="235.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/Solana.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="28.0" layoutY="411.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/BNB.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="28.0" layoutY="499.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/polkadot.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="92.0" layoutX="201.0" layoutY="498.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icons/avalanche.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="btc" layoutX="89.0" layoutY="74.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="avax" layoutX="260.0" layoutY="515.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="doge" layoutX="260.0" layoutY="428.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="matic" layoutX="260.0" layoutY="338.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="sol" layoutX="260.0" layoutY="251.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="cardano" layoutX="260.0" layoutY="165.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label layoutX="260.0" layoutY="73.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" fx:id="xrp" />
+            <Label fx:id="dot" layoutX="98.0" layoutY="516.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="bnb" layoutX="98.0" layoutY="427.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="shiba" layoutX="98.0" layoutY="339.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="tron" layoutX="98.0" layoutY="252.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <Label fx:id="eth" layoutX="98.0" layoutY="165.0" prefHeight="17.0" prefWidth="97.0" style="-fx-text-fill: white" text="Price" />
+            <PieChart fx:id="pieChart" layoutX="395.0" layoutY="107.0" prefHeight="212.0" prefWidth="258.0" />
+            <Label layoutX="434.0" layoutY="54.0" style="-fx-text-fill: WHITE;" text="Dominance">
+               <font>
+                  <Font name="Century Gothic Bold" size="34.0" />
+               </font>
+            </Label>
+            <Label layoutX="395.0" layoutY="446.0" style="-fx-text-fill: WHITE;" text="Crypto MarketCap:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="cryptos" layoutX="528.0" layoutY="339.0" style="-fx-text-fill: WHITE;" text="Crypto MarketCap:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="428.0" layoutY="514.0" style="-fx-text-fill: WHITE;" text="Volume:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="exchanges" layoutX="528.0" layoutY="392.0" style="-fx-text-fill: WHITE;" text="Crypto MarketCap:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="419.0" layoutY="392.0" style="-fx-text-fill: WHITE;" text="Exchanges:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="volume" layoutX="520.0" layoutY="514.0" style="-fx-text-fill: WHITE;" text="Crypto MarketCap:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="427.0" layoutY="339.0" style="-fx-text-fill: WHITE;" text="Cryptos:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="marketcap" layoutX="528.0" layoutY="446.0" style="-fx-text-fill: WHITE;" text="Crypto MarketCap:">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+
+         </children>
+
+      </Pane>
+
+      <VBox prefHeight="781.0" prefWidth="281.0" />
+
+   </children>
+
+</HBox>

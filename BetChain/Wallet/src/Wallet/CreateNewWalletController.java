@@ -1,0 +1,168 @@
+package Wallet;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.time.LocalDate;
+import java.time.Period;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import DB.IDMemorie;
+import DB.Register;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import serialization.Motherboard;
+
+public class CreateNewWalletController extends Motherboard{
+	@FXML private Button CreateAccount, exit;
+	@FXML private TextField Email, Nome, Idade;
+	@FXML private PasswordField Password;
+	@FXML private DatePicker DataNascimento;
+	
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
+	private String MotherBoardID;
+	
+	private double xOffset = 0;
+	private double yOffset = 0;
+	
+	private Register register;
+	private static int IdUtilizador;
+	
+	public static void numericOnly(final TextField field) {
+        field.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    field.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+	
+	@FXML
+	private void close(ActionEvent event) {
+		System.exit(0);
+	}
+	
+	private static String readAll(Reader rd) throws IOException {
+	    StringBuilder sb = new StringBuilder();
+	    int cp;
+	    while ((cp = rd.read()) != -1) {
+	      sb.append((char) cp);
+	    }
+	    return sb.toString();
+	  }
+	
+	public static JSONObject getAddresses() throws IOException, JSONException {
+		InputStream url = null;
+		try {
+					url = new URL(Main.getLinkClient()+"/wallet/new").openStream();
+					BufferedReader rd = new BufferedReader(new InputStreamReader(url, Charset.forName("UTF-8")));
+				    String jsonText = readAll(rd);
+				    JSONObject json = new JSONObject(jsonText);
+				    return json;
+		}finally {
+		      url.close();
+		}
+	 }
+	
+	
+	@FXML
+	private void createAccount(ActionEvent event) throws IOException, NoSuchAlgorithmException, NoSuchProviderException, JSONException{
+		JSONObject json = getAddresses();
+		System.out.println(json);
+		numericOnly(Idade);
+		if(DataNascimento.getValue() != null) {
+		LocalDate today = LocalDate.now();
+		LocalDate birthday = LocalDate.of(DataNascimento.getValue().getYear(), DataNascimento.getValue().getMonth(), DataNascimento.getValue().getDayOfMonth());
+
+		Period period = Period.between(birthday, today);
+
+		if(period.getYears() >= 18) {
+			String age = String.valueOf(period.getYears());
+			Idade.setText(age);
+		if(!Email.getText().isEmpty() && !Password.getText().isEmpty() && !Nome.getText().isEmpty() && !Idade.getText().isEmpty() && (Email.getText().toString().contains("@gmail.com") || Email.getText().toString().contains("@yahoo.com")) && Integer.valueOf(Idade.getText().toString()) >= 18) {
+			register = new Register(Nome.getText().toString(), Idade.getText().toString(), Password.getText().toString(), Email.getText().toString(), DataNascimento.getEditor().getText().toString(), json.get("private_key").toString(), json.get("public_key").toString());
+			IdUtilizador = register.getIdUtilizador();
+			if(register.getResult() > 0)
+			{
+				MotherBoardID = Motherboard.getWindowsMotherBoardSerialNumber();
+				IDMemorie IDMemorie = new IDMemorie(MotherBoardID, Password.getText(), IdUtilizador);
+				System.out.print(IDMemorie.getResult());
+				if(IDMemorie.getResult() == 0) {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenerateWords.fxml"));
+					root = fxmlLoader.load();
+					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					
+					root.setOnMousePressed(new EventHandler<MouseEvent>() {
+			            @Override
+			            public void handle(MouseEvent event) {
+			                xOffset = stage.getX() - event.getScreenX();
+			                yOffset = stage.getY() - event.getScreenY();
+			            }
+			        });
+					
+					root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			            @Override
+			            public void handle(MouseEvent event) {
+			                stage.setX(event.getScreenX() + xOffset);
+			                stage.setY(event.getScreenY() + yOffset);
+			            }
+			        });
+					
+					stage.show();
+				}
+			}
+		}else {
+			infoBox("Something is wrong", "Failed", null);
+		}
+		}else {
+			infoBox("You under 18", "Failed", null);
+		}
+		}else {
+			infoBox("Choose birthday date", "Failed", null);
+		}
+	}
+	
+	public int getIdUtilizador() {
+		return IdUtilizador;
+	}
+	
+	public static void infoBox(String infoMessage, String titleBar, String headerMessage)
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(titleBar);
+		alert.setHeaderText(headerMessage);
+		alert.setContentText(infoMessage);
+		alert.showAndWait();
+	}
+}

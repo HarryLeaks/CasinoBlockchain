@@ -1,0 +1,221 @@
+package Wallet;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+import java.util.Optional;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import DB.getCoins;
+import DB.getUserData;
+import DB.sendCoins;
+import DB.updateUserData;
+
+public class PortfolioController{	
+	getUserData userData = new getUserData(Wallet.Home.getId());
+	private String strname = userData.getName();
+	private String strage = String.valueOf(userData.getAge());
+	private String strbirthday = userData.getBirthday();
+	private String stremail = userData.getEmail();
+	private String strpassword = userData.getPassword();
+	private String strbetCoins = String.valueOf(userData.getBetcoins());
+	private String strprivateAddr = userData.getPrivateAddr();
+	private String strpublicAddr = userData.getPublicAddr();
+
+	@FXML private Label name;
+	@FXML private Label email;
+	@FXML private Label password;
+	@FXML private Label Age;
+	@FXML private Label birthday;
+	@FXML private Label betCoins;
+	@FXML private Label privateAddr;
+	@FXML private Label publicAddr;
+	@FXML private TextField Address;
+	@FXML private TextField Amount;
+	
+	@FXML
+	public void initialize() throws NoSuchAlgorithmException{	
+		name.setText(strname);
+		email.setText(stremail);
+		password.setText(strpassword);
+		betCoins.setText(strbetCoins);
+		Age.setText(strage);
+		birthday.setText(strbirthday);
+		privateAddr.setText(strprivateAddr);
+		publicAddr.setText(strpublicAddr);
+	}
+	
+	@FXML
+	public void editname(ActionEvent event) throws SQLException {
+		TextInputDialog td = new TextInputDialog("");
+        td.setHeaderText("Change your name");
+        Optional<String> result = td.showAndWait();
+        if(result.isPresent()) {
+        	updateUserData update = new updateUserData("Nome", result.get(), Wallet.Home.getId());
+        	name.setText(result.get());
+        }
+	}
+	
+	@FXML
+	public void editemail(ActionEvent event) throws SQLException {
+		TextInputDialog td = new TextInputDialog("");
+        td.setHeaderText("Change your email");
+        Optional<String> result = td.showAndWait();
+        if(result.isPresent()) {
+        	updateUserData update = new updateUserData("Email", result.get(), Wallet.Home.getId());
+        	email.setText(result.get());
+        }
+	}
+	
+	@FXML
+	public void editpassword(ActionEvent event) throws SQLException {
+		TextInputDialog td = new TextInputDialog("");
+        td.setHeaderText("Change your password");
+        Optional<String> result = td.showAndWait();
+        if(result.isPresent()) {
+        	updateUserData update = new updateUserData("PalavraPasse", result.get(), Wallet.Home.getId());
+        	password.setText(result.get());
+        }
+	}
+	
+	@FXML
+	public void editage(ActionEvent event) throws SQLException {
+		TextInputDialog td = new TextInputDialog("");
+        td.setHeaderText("Change your age");
+        Optional<String> result = td.showAndWait();
+        if(result.isPresent()) {
+        	updateUserData update = new updateUserData("Idade", result.get(), Wallet.Home.getId());
+        	Age.setText(result.get());
+        }
+	}
+	
+	@FXML
+	public void editbirthday(ActionEvent event) throws SQLException {
+		TextInputDialog td = new TextInputDialog("");
+        td.setHeaderText("Change your birthday");
+        Optional<String> result = td.showAndWait();
+        if(result.isPresent()) {
+        	updateUserData update = new updateUserData("DataNascimento", result.get(), Wallet.Home.getId());
+        	birthday.setText(result.get());
+        }
+	}
+	
+	@FXML
+	public void buy(ActionEvent event) throws SQLException {
+		TextInputDialog td = new TextInputDialog("");
+        td.setHeaderText("Insert how much you want to buy");
+        Optional<String> result = td.showAndWait();
+        if(result.isPresent()) {
+        	getCoins getC = new getCoins(Wallet.Home.getId());
+        	updateUserData update = new updateUserData("BetCoins", String.valueOf(Float.parseFloat(result.get())+getC.getBetCoins()), Wallet.Home.getId());
+        	betCoins.setText(String.valueOf(Float.parseFloat(result.get())+getC.getBetCoins()));
+        }
+	}
+	
+	private static String readAll(Reader rd) throws IOException {
+	    StringBuilder sb = new StringBuilder();
+	    int cp;
+	    while ((cp = rd.read()) != -1) {
+	      sb.append((char) cp);
+	    }
+	    return sb.toString();
+	  }
+	
+	public static JSONObject makeTransaction() throws IOException, JSONException {
+		InputStream url = null;
+		try {
+			url = new URL("http://127.0.0.1:8081/generate/transaction").openStream();
+			BufferedReader rd = new BufferedReader(new InputStreamReader(url, Charset.forName("UTF-8")));
+		    String jsonText = readAll(rd);
+		    JSONObject json = new JSONObject(jsonText);
+		    return json;
+		}finally {
+		      url.close();
+		}
+	 }
+	
+	public static JSONObject confirmationTransaction(JSONObject info, String amount, String senderAddr, String receiverAddr) throws IOException, JSONException {
+		    String urlParameters = "confirmation_sender_public_key="+senderAddr+"&confirmation_recipient_public_key="+receiverAddr+"&transaction_signature="+info.get("signature")+"&confirmation_amount="+amount;
+		    URL url = new URL("http://127.0.0.1:5001/transactions/new");
+		    URLConnection conn = url.openConnection();
+
+		    conn.setDoOutput(true);
+
+		    OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+		    writer.write(urlParameters);
+		    writer.flush();
+		    writer.close();
+		    
+		    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+		    String jsonText = readAll(reader);
+		    JSONObject json = new JSONObject(jsonText);
+		    return json;
+	 }
+	
+	@FXML
+	public void send(ActionEvent event) throws SQLException, IOException, JSONException{
+		if(!Amount.getText().isEmpty() && Float.parseFloat(Amount.getText()) > 0) {
+			if(Float.parseFloat(Amount.getText()) <= Float.parseFloat(betCoins.getText())) {
+				sendCoins transfer = new sendCoins(strpublicAddr, strprivateAddr, Address.getText(), Float.parseFloat(Amount.getText()), Integer.toString(Wallet.Home.getId()));
+				strbetCoins = String.valueOf(userData.getBetcoins()-Float.parseFloat(Amount.getText()));
+				
+				JSONObject json = makeTransaction();
+				Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+				alert.setTitle("Transaction Confirmation");
+				alert.setContentText("Signature: " +json.getString("signature").toString().substring(0, 30)+"...");
+				ButtonType okButton = new ButtonType("Yes").YES;
+				ButtonType noButton = new ButtonType("No").NO;
+				alert.getButtonTypes().setAll(okButton, noButton);
+				alert.showAndWait().ifPresent(type -> {
+				        if (type == ButtonType.YES) {
+							try {
+								JSONObject json1 = confirmationTransaction(json, strbetCoins, strpublicAddr, Address.getText());
+							} catch (IOException | JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+				        } else {
+				        }
+				});
+											
+				betCoins.setText(strbetCoins);
+				Amount.setText("");
+				Address.setText("");
+			}else {
+				infoBox("You don't have suficient funds", "Failed", null);
+			}
+		}else {
+			infoBox("Something went wrong", "Failed", null);
+		}
+	}
+	
+	public static void infoBox(String infoMessage, String titleBar, String headerMessage)
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(titleBar);
+		alert.setHeaderText(headerMessage);
+		alert.setContentText(infoMessage);
+		alert.showAndWait();
+	}
+}

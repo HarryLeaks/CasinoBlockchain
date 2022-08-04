@@ -1,0 +1,52 @@
+package DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+public class getTransactionTable {
+	private static final String getTable = "SELECT SenderPublicAddress, ReceiverPublicAddress, Amount, TimeStamp FROM transactions WHERE MinedTransaction = '0' AND Node = " + Wallet.Main.getLinkBlockchain().substring(Wallet.Main.getLinkBlockchain().length() - 4);
+	
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet resultSet;
+	
+	private ArrayList<String> SenderAddr = new ArrayList<String>();
+	private ArrayList<String> ReceiverAddr = new ArrayList<String>();
+	private ArrayList<Float> Amount = new ArrayList<Float>();
+	private ArrayList<String> TimeStamp = new ArrayList<String>();
+	
+	public getTransactionTable() {
+		connection = ConnectionUtil.connectdb();
+		try {
+			preparedStatement = connection.prepareStatement(getTable);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				SenderAddr.add(resultSet.getString(1));
+				ReceiverAddr.add(resultSet.getString(2));
+				Amount.add(resultSet.getFloat(3));
+				TimeStamp.add(resultSet.getString(4));
+			}
+			preparedStatement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<String> getSenderList() {
+		return SenderAddr;
+	}
+	
+	public ArrayList<String> getReceiverList() {
+		return ReceiverAddr;
+	}
+	
+	public ArrayList<Float> getAmountList() {
+		return Amount;
+	}
+	
+	public ArrayList<String> getTimeStampList() {
+		return TimeStamp;
+	}
+}

@@ -1,0 +1,86 @@
+package Wallet;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import DB.WordsSetter;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
+public class GenerateWordsController extends CreateNewWalletController{
+	@FXML private Button Continue, exit;
+	@FXML private Label lb1, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10, lb11, lb12;
+	@FXML private Label lbArray[] = new Label[12]; 
+	
+	public GenerateWordsController() {
+		setLabelArray();
+	}
+	
+	public void setLabelArray() {
+		List<String> words = generateRandomWords();
+		lb1.setText(words.get(0));
+		lb2.setText(words.get(1));
+		lb3.setText(words.get(2));
+		lb4.setText(words.get(3));
+		lb5.setText(words.get(4));
+		lb6.setText(words.get(5));
+		lb7.setText(words.get(6));
+		lb8.setText(words.get(7));
+		lb9.setText(words.get(8));
+		lb10.setText(words.get(9));
+		lb11.setText(words.get(10));
+		lb12.setText(words.get(11));
+		
+		lbArray[0] = lb1;
+		lbArray[1] = lb2;
+		lbArray[2] = lb3;
+		lbArray[3] = lb4;
+		lbArray[4] = lb5;
+		lbArray[5] = lb6;
+		lbArray[6] = lb7;
+		lbArray[7] = lb8;
+		lbArray[8] = lb9;
+		lbArray[9] = lb10;
+		lbArray[10] = lb11;
+		lbArray[11] = lb12;
+	}
+	
+	public static List<String> generateRandomWords()
+	{
+		List<String> words = new ArrayList<String>();
+		//System.setProperty("webdriver.chrome.driver", "C:\\Program Files\\Java\\chromedriver");
+		//WebDriver nav = new ChromeDriver();
+		
+		//nav.get("https://randomwordgenerator.com/");
+		//nav.findElement(By.name("qty")).sendKeys("12");
+		/nav.findElement(By.linkText("Generate Random Words")).click();
+		
+		//List<WebElement> elements = nav.findElement(By.id("result")).findElements(By.className("support"));
+
+		//for(WebElement element: elements)
+		//{
+		  //  words.add(element.getText());
+		//}
+		return words;
+	}
+
+	@FXML
+	private void exit(ActionEvent event) {
+		System.exit(0);
+	}
+	
+	@FXML 
+	private void Continue(ActionEvent event) {
+		int IdUtilizador = getIdUtilizador();
+		WordsSetter ws = new WordsSetter(lbArray, IdUtilizador);
+	}
+	
+}

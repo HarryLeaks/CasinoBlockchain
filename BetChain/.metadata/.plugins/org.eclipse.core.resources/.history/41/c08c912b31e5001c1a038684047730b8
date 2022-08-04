@@ -1,0 +1,131 @@
+package Wallet;
+
+import java.io.IOException;
+import java.security.Key;
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Base64;
+import java.util.Date;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import DB.IDMemorie;
+import DB.Register;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import serialization.Motherboard;
+
+public class CreateNewWalletController extends Motherboard{
+	@FXML private Button CreateAccount, exit;
+	@FXML private TextField Email, Password, Nome, Idade, DataNascimento;
+	
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
+	private String MotherBoardID;
+	
+	private double xOffset = 0;
+	private double yOffset = 0;
+	
+	private Register register;
+	private static int IdUtilizador;
+	
+	public static final String KEY_ALGORITHM = "RSA";
+    private static final int KEY_LENGTH = 1024;
+    public static final String PUBLIC_KEY = "PublicKey";
+    public static final String PRIVATE_KEY = "PrivateKey";
+	
+	public static void numericOnly(final TextField field) {
+        field.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(
+                    ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    field.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+    }
+	
+	@FXML
+	private void close(ActionEvent event) {
+		System.exit(0);
+	}
+	
+	@FXML
+	private void createAccount(ActionEvent event) throws IOException, NoSuchAlgorithmException, NoSuchProviderException{
+		numericOnly(Idade);
+		if(!Email.getText().isEmpty() && !Password.getText().isEmpty() && !Nome.getText().isEmpty() && !Idade.getText().isEmpty() && !DataNascimento.getText().isEmpty() && (Email.getText().toString().contains("@gmail.com") || Email.getText().toString().contains("@yahoo.com")) && Integer.valueOf(Idade.getText().toString()) >= 18) {
+			register = new Register(Nome.getText().toString(), Idade.getText().toString(), Password.getText().toString(), Email.getText().toString(), DataNascimento.getText().toString(), pvtBase64encoded, pubBase64encoded);
+			IdUtilizador = register.getIdUtilizador();
+			if(register.getResult() > 0)
+			{
+				MotherBoardID = Motherboard.getWindowsMotherBoardSerialNumber();
+				IDMemorie IDMemorie = new IDMemorie(MotherBoardID, Password.getText(), IdUtilizador);
+				System.out.print(IDMemorie.getResult());
+				if(IDMemorie.getResult() == 0) {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("GenerateWords.fxml"));
+					root = fxmlLoader.load();
+					stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					
+					root.setOnMousePressed(new EventHandler<MouseEvent>() {
+			            @Override
+			            public void handle(MouseEvent event) {
+			                xOffset = stage.getX() - event.getScreenX();
+			                yOffset = stage.getY() - event.getScreenY();
+			            }
+			        });
+					
+					root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+			            @Override
+			            public void handle(MouseEvent event) {
+			                stage.setX(event.getScreenX() + xOffset);
+			                stage.setY(event.getScreenY() + yOffset);
+			            }
+			        });
+					
+					stage.show();
+				}
+			}
+		}else {
+			infoBox("Something is wrong", "Failed", null);
+		}
+	}
+	
+	public int getIdUtilizador() {
+		return IdUtilizador;
+	}
+	
+	public static void infoBox(String infoMessage, String titleBar, String headerMessage)
+	{
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle(titleBar);
+		alert.setHeaderText(headerMessage);
+		alert.setContentText(infoMessage);
+		alert.showAndWait();
+	}
+}

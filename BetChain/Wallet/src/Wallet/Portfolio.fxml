@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="586.0" prefWidth="748.0" styleClass="root" stylesheets="@style.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Wallet.PortfolioController">
+
+   <children>
+
+      <VBox prefHeight="781.0" prefWidth="281.0" />
+
+      <Pane prefHeight="781.0" prefWidth="1040.0" style="-fx-background-color: #181A20">
+
+         <children>
+
+            <Pane layoutY="14.0" prefHeight="43.0" prefWidth="748.0" style="-fx-background-color: #181A20">
+
+               <children>
+      
+                  <Label layoutX="14.0" layoutY="-11.0" style="-fx-text-fill: WHITE;" text="Welcome To BetWallet">
+      
+                     <font>
+      
+                        <Font name="Century Gothic Bold" size="34.0" />
+      
+                     </font>
+      
+                  </Label>
+
+               </children>
+
+            </Pane>
+
+                        <Pane layoutX="22.0" layoutY="57.0" prefHeight="218.0" prefWidth="705.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_11" stylesheets="@style.css">
+
+                           <children>
+
+                              <Label layoutX="60.0" layoutY="106.0" textFill="#323131">
+
+                                 <font>
+
+                                    <Font name="Century Gothic Bold" size="20.0" />
+
+                                 </font>
+
+                              </Label>
+                  <Pane layoutX="4.0" layoutY="14.0" prefHeight="94.0" prefWidth="227.0" style="-fx-background-color: #181A20" styleClass="pane_1" stylesheets="@style.css">
+                     <children>
+                        <Label layoutX="120.0" layoutY="16.0" prefHeight="26.0" prefWidth="0.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="120.0" layoutY="73.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+            
+                                                      <Pane layoutX="10.0" layoutY="8.0" prefHeight="78.0" prefWidth="207.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_11" stylesheets="@style.css">
+            
+                                                         <children>
+            
+                                                                  <Label layoutX="62.0" layoutY="14.0" style="-fx-text-fill: white;" text="Name">
+            
+                                                                     <font>
+            
+                                                                        <Font name="Century Gothic Bold" size="20.0" />
+            
+                                                                     </font>
+            
+                                                                  </Label>
+            
+                                                            <Label id="name" fx:id="name" layoutX="65.0" layoutY="44.0" prefHeight="26.0" prefWidth="132.0" style="-fx-text-fill: WHITE;" text="" textFill="#9a9696">
+            
+                                                               <font>
+            
+                                                                  <Font name="Century Gothic" size="17.0" />
+            
+                                                               </font>
+            
+                                                            </Label>
+            
+                                                                  <ImageView fitHeight="56.0" fitWidth="50.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+            
+                                                                     <image>
+            
+                                                                        <Image url="@../icons/name.png" />
+            
+                                                                     </image>
+            
+                                                                  </ImageView>
+                              <Button ellipsisString="" layoutX="166.0" layoutY="-7.0" minWidth="35.0" onAction="#editname" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: transparent;" text="    " wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+            
+                                                         </children>
+            
+                                                      </Pane>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="473.0" layoutY="14.0" prefHeight="94.0" prefWidth="227.0" style="-fx-background-color: #181A20 " styleClass="pane_1" stylesheets="@style.css">
+                     <children>
+                        <Label layoutX="120.0" layoutY="16.0" prefHeight="26.0" prefWidth="0.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="120.0" layoutY="73.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="10.0" layoutY="8.0" prefHeight="78.0" prefWidth="207.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_11" stylesheets="@style.css">
+                           <children>
+                              <Label layoutX="62.0" layoutY="14.0" style="-fx-text-fill: white;" text="Password">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label id="password" fx:id="password" layoutX="68.0" layoutY="44.0" prefHeight="26.0" prefWidth="132.0" style="-fx-text-fill: WHITE;" text="" textFill="#9a9696">
+                                 <font>
+                                    <Font name="Century Gothic" size="17.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="56.0" fitWidth="50.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/password.png" />
+                                 </image>
+                              </ImageView>
+                              <Button ellipsisString="" layoutX="166.0" layoutY="-5.0" minWidth="35.0" onAction="#editpassword" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: transparent;" text="    " wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="237.0" layoutY="121.0" prefHeight="94.0" prefWidth="227.0" style="-fx-background-color: #181A20 " styleClass="pane_1" stylesheets="@style.css">
+                     <children>
+                        <Label layoutX="120.0" layoutY="16.0" prefHeight="26.0" prefWidth="0.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="120.0" layoutY="73.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="10.0" layoutY="8.0" prefHeight="78.0" prefWidth="207.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_11" stylesheets="@style.css">
+                           <children>
+                              <Label layoutX="62.0" layoutY="14.0" style="-fx-text-fill: white;" text="Birthday">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="56.0" fitWidth="50.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/birthday.png" />
+                                 </image>
+                              </ImageView>
+                              <Label id="birthday" fx:id="birthday" layoutX="62.0" layoutY="41.0" prefHeight="26.0" prefWidth="124.0" style="-fx-text-fill: WHITE;" text="" textFill="#9a9696">
+                                 <font>
+                                    <Font name="Century Gothic" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Button ellipsisString="" layoutX="166.0" minWidth="35.0" onAction="#editbirthday" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: transparent;" text="    " wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="473.0" layoutY="121.0" prefHeight="94.0" prefWidth="227.0" style="-fx-background-color: #181A20 " styleClass="pane_1" stylesheets="@style.css">
+                     <children>
+                        <Pane layoutX="10.0" layoutY="8.0" prefHeight="78.0" prefWidth="207.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_11" stylesheets="@style.css">
+                           <children>
+                              <Label layoutX="66.0" layoutY="16.0" style="-fx-text-fill: white;" text="Betcoins">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label id="betCoins" fx:id="betCoins" layoutX="70.0" layoutY="44.0" prefHeight="26.0" prefWidth="132.0" style="-fx-text-fill: WHITE;" text="" textFill="#9a9696">
+                                 <font>
+                                    <Font name="Century Gothic" size="17.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="56.0" fitWidth="50.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@img/logo.png" />
+                                 </image>
+                              </ImageView>
+                              <Button ellipsisString="" layoutX="149.0" layoutY="-5.0" minWidth="35.0" onAction="#buy" prefHeight="48.0" prefWidth="57.0" style="-fx-background-color: transparent;" text="    " wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="42.0" fitWidth="58.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/buy.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="237.0" layoutY="14.0" prefHeight="94.0" prefWidth="227.0" style="-fx-background-color: #181A20" styleClass="pane_1" stylesheets="@style.css">
+                     <children>
+                        <Label layoutX="120.0" layoutY="16.0" prefHeight="26.0" prefWidth="0.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="120.0" layoutY="73.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="10.0" layoutY="8.0" prefHeight="78.0" prefWidth="207.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_11" stylesheets="@style.css">
+                           <children>
+                              <Label layoutX="62.0" layoutY="14.0" style="-fx-text-fill: white;" text="Email">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label id="email" fx:id="email" layoutX="68.0" layoutY="44.0" prefHeight="26.0" prefWidth="132.0" style="-fx-text-fill: WHITE;" text="" textFill="#9a9696">
+                                 <font>
+                                    <Font name="Century Gothic" size="17.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="56.0" fitWidth="50.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/email.png" />
+                                 </image>
+                              </ImageView>
+                              <Button ellipsisString="" layoutX="166.0" layoutY="-5.0" minWidth="35.0" onAction="#editemail" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: transparent;" text="    " wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+                  <Pane layoutX="4.0" layoutY="121.0" prefHeight="94.0" prefWidth="227.0" style="-fx-background-color: #181A20" styleClass="pane_1" stylesheets="@style.css">
+                     <children>
+                        <Label layoutX="120.0" layoutY="16.0" prefHeight="26.0" prefWidth="0.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="120.0" layoutY="73.0" textFill="#9a9696">
+                           <font>
+                              <Font name="Century Gothic" size="17.0" />
+                           </font>
+                        </Label>
+                        <Pane layoutX="10.0" layoutY="8.0" prefHeight="78.0" prefWidth="207.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_11" stylesheets="@style.css">
+                           <children>
+                              <Label layoutX="62.0" layoutY="14.0" style="-fx-text-fill: white;" text="Age">
+                                 <font>
+                                    <Font name="Century Gothic Bold" size="20.0" />
+                                 </font>
+                              </Label>
+                              <ImageView fitHeight="56.0" fitWidth="50.0" layoutX="12.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/birthday.png" />
+                                 </image>
+                              </ImageView>
+                              <Label id="Age" fx:id="Age" layoutX="62.0" layoutY="41.0" prefHeight="26.0" prefWidth="124.0" style="-fx-text-fill: WHITE;" text="" textFill="#9a9696">
+                                 <font>
+                                    <Font name="Century Gothic" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Button ellipsisString="" layoutX="166.0" layoutY="-5.0" minWidth="35.0" onAction="#editage" prefHeight="43.0" prefWidth="35.0" style="-fx-background-color: transparent;" text="    " wrapText="true">
+                                 <graphic>
+                                    <ImageView fitHeight="23.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../icons/edit.png" />
+                                       </image>
+                                    </ImageView>
+                                 </graphic>
+                              </Button>
+                           </children>
+                        </Pane>
+                     </children>
+                  </Pane>
+
+                           </children>
+
+                        </Pane>
+            <Pane layoutX="24.0" layoutY="283.0" prefHeight="50.0" prefWidth="705.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_1" stylesheets="@style.css">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: white;" text="Private Key: " textFill="#323131">
+                     <font>
+                        <Font name="Century Gothic Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label id="privateAddr" fx:id="privateAddr" layoutX="120.0" layoutY="16.0" prefHeight="26.0" prefWidth="573.0" style="-fx-text-fill: WHITE;" text="" textFill="#9a9696">
+                     <font>
+                        <Font name="Century Gothic" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane layoutX="24.0" layoutY="344.0" prefHeight="48.0" prefWidth="705.0" style="-fx-background-color: #4F4F4F;" styleClass="pane_1" stylesheets="@style.css">
+               <children>
+                  <Label layoutX="14.0" layoutY="14.0" style="-fx-text-fill: white;" text="Public Key: " textFill="#323131">
+                     <font>
+                        <Font name="Century Gothic Bold" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label id="publicAddr" fx:id="publicAddr" layoutX="120.0" layoutY="16.0" prefHeight="26.0" prefWidth="573.0" style="-fx-text-fill: WHITE;" textFill="white">
+                     <font>
+                        <Font name="Century Gothic" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Button layoutX="350.0" layoutY="513.0" maxWidth="1.7976931348623157E308" minWidth="47.0" mnemonicParsing="false" onAction="#send" prefHeight="43.0" prefWidth="47.0" style="-fx-background-color: transparent;" text="">
+                                	<font>
+					                  <Font name="Calibri Bold" size="21.0" />
+					               </font>
+               <graphic>
+      								        <ImageView fitHeight="50.0" fitWidth="66.0" pickOnBounds="true" preserveRatio="true">
+      								            <Image url="@../icons/send.png" />
+      								        </ImageView>
+               </graphic>
+                                </Button>
+            <Label layoutX="305.0" layoutY="392.0" prefHeight="56.0" prefWidth="163.0" text="Send BetCoins" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <TextField fx:id="Address" layoutX="40.0" layoutY="484.0" prefHeight="26.0" prefWidth="216.0" style="-fx-background-color: #4F4F4F;;" />
+            <Label layoutX="33.0" layoutY="442.0" style="-fx-text-fill: white;" text="Receiver Public Address">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <TextField fx:id="Amount" layoutX="501.0" layoutY="484.0" prefHeight="26.0" prefWidth="207.0" style="-fx-background-color: #4F4F4F; -fx-text-inner-color: WHITE;" />
+            <Label layoutX="565.0" layoutY="442.0" style="-fx-text-fill: white;" text="Amount">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+
+         </children>
+
+      </Pane>
+
+   </children>
+
+</HBox>

@@ -1,0 +1,83 @@
+package Wallet;
+
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Random;
+
+import DB.WordsSetter;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+
+public class GenerateWordsController extends CreateNewWalletController{
+	@FXML private Button Continue, exit;
+	@FXML private Label lb1, lb2, lb3, lb4, lb5, lb6, lb7, lb8, lb9, lb10, lb11, lb12;
+	@FXML private Label lbArray[] = new Label[12]; 
+	
+	public GenerateWordsController() {
+		setLabelArray();
+	}
+	
+	public void setLabelArray() {
+		String words[] = generateRandomWords();
+		lb1.setText(words[0]);
+		lb2.setText(words[1]);
+		lb3.setText(words[2]);
+		lb4.setText(words[3]);
+		lb5.setText(words[4]);
+		lb6.setText(words[5]);
+		lb7.setText(words[6]);
+		lb8.setText(words[7]);
+		lb9.setText(words[8]);
+		lb10.setText(words[9]);
+		lb11.setText(words[10]);
+		lb12.setText(words[11]);
+		
+		lbArray[0] = lb1;
+		lbArray[1] = lb2;
+		lbArray[2] = lb3;
+		lbArray[3] = lb4;
+		lbArray[4] = lb5;
+		lbArray[5] = lb6;
+		lbArray[6] = lb7;
+		lbArray[7] = lb8;
+		lbArray[8] = lb9;
+		lbArray[9] = lb10;
+		lbArray[10] = lb11;
+		lbArray[11] = lb12;
+	}
+	
+	public static String[] generateRandomWords()
+	{
+		String data = "";
+		try {
+			URL url = new URL("https://random-word-api.herokuapp.com/all");
+			HttpURLConnection con = (HttpURLConnection)url.openConnection();
+			
+			if(con.getResponseCode() == 200) {
+				
+			}else {
+				System.out.println("Internet Connection error");
+				infoBox("Internet Connection", "", null);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	private void close(ActionEvent event) {
+		System.exit(0);
+	}
+	
+	@FXML 
+	private void Continue(ActionEvent event) {
+		int IdUtilizador = getIdUtilizador();
+		WordsSetter ws = new WordsSetter(lbArray, IdUtilizador);
+	}
+	
+}

@@ -1,0 +1,31 @@
+package DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javafx.scene.control.Label;
+
+public class WordsSetter {
+	private static final String sql = "INSERT INTO recoverywords "
+			+ "(Word1, Word2, Word3, Word4, Word5, Word6, Word7, Word8, Word9, Word10, Word11, Word12) " 
+			+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet result;
+	
+	public WordsSetter(List<String> words, int IdUtilizador) {
+		connection = ConnectionUtil.connectdb();
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			
+			for(int i = 0; i < 12; i++) {
+				preparedStatement.setString(i+1, lbArray[i]);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

@@ -1,0 +1,16 @@
+package DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class deleteIdMemorie {
+	private static final String sql = "SELECT IdUtilizador"
+	
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	int resultSet;
+	
+	public deleteIdMemorie() {
+		
+	}
+}

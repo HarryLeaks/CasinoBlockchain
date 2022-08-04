@@ -1,0 +1,198 @@
+package Wallet;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Reader;
+import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
+import java.sql.SQLException;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import DB.MotherBoardIDChecker;
+import DB.getCoins;
+import DB.getTransactionsForBlockchain;
+import DB.sendReward;
+import DB.updateUnminedTransactions;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import serialization.Motherboard;
+
+public class Main extends Application{
+	private MotherBoardIDChecker motherBoardID = new MotherBoardIDChecker();
+	private double xOffset = 0;
+	private double yOffset = 0;
+	
+	private static String linkClient = "http://127.0.0.1:";
+	private static String linkBlockchain = "http://127.0.0.1:";
+	
+	private static String readAll(Reader rd) throws IOException {
+	    StringBuilder sb = new StringBuilder();
+	    int cp;
+	    while ((cp = rd.read()) != -1) {
+	      sb.append((char) cp);
+	    }
+	    return sb.toString();
+	  }
+	
+	public static JSONObject TransactionManual(String amount, String senderAddr, String senderPvtAddr, String receiverAddr) throws IOException, JSONException {
+	    String urlParameters = "SenderPublicAddress="+senderAddr+"&SenderPrivateAddress="+senderPvtAddr+"&ReceiverPublicAddress="+receiverAddr+"&Amount="+amount;
+	    URL url = new URL(Main.getLinkClient()+"/generate/transaction_manual");
+	    URLConnection conn = url.openConnection();
+
+	    conn.setDoOutput(true);
+
+	    OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+	    writer.write(urlParameters);
+	    writer.flush();
+	    writer.close();
+	    
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	    String jsonText = readAll(reader);
+	    JSONObject json = new JSONObject(jsonText);
+	    return json;
+ }
+	public static JSONObject confirmationTransaction(JSONObject info, String amount, String senderAddr, String receiverAddr) throws IOException, JSONException {
+	    String urlParameters = "confirmation_sender_public_key="+senderAddr+"&confirmation_recipient_public_key="+receiverAddr+"&transaction_signature="+info.get("signature")+"&confirmation_amount="+amount;
+	    URL url = new URL(Main.getLinkBlockchain()+"/transactions/new");
+	    URLConnection conn = url.openConnection();
+
+	    conn.setDoOutput(true);
+
+	    OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
+
+	    writer.write(urlParameters);
+	    writer.flush();
+	    writer.close();
+	    
+	    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+	    String jsonText = readAll(reader);
+	    JSONObject json = new JSONObject(jsonText);
+	    return json;
+ }
+	
+	@Override
+	public void start(Stage stage) throws IOException, JSONException, SQLException{
+		stage.getIcons().add(new Image("/Wallet/img/logo.png"));
+		@SuppressWarnings("unused")
+		Socket Skt;
+	    String host = "localhost";
+	    
+	      for (int i = 8081; i <= 8089; i++) {
+	         try {
+	            Skt = new Socket(host, i);
+	         } catch (Exception e) {
+	        	 linkClient += Integer.toString(i);
+	        	 System.out.println(linkClient);
+				try {
+					@SuppressWarnings("unused")
+					Process p = Runtime.getRuntime().exec("cmd.exe /c start python \"client/blockchain_client.py\" -p "+Integer.toString(i));
+					break;
+				} catch (IOException ex) {
+				    ex.printStackTrace();
+				}
+	         }
+	      }
+	      
+	      for (int i = 5001; i <= 5009; i++) {
+		         try {
+		            Skt = new Socket(host, i);
+		         } catch (Exception e) {
+		        	 linkBlockchain += Integer.toString(i);
+		        	 System.out.println(linkBlockchain);
+					try {
+						@SuppressWarnings("unused")
+						Process p = Runtime.getRuntime().exec("cmd.exe /c start python \"blockchain/blockchain.py\" -p "+Integer.toString(i));
+						break;
+					} catch (IOException ex) {
+					    ex.printStackTrace();
+					}
+		         }
+		      }
+	    getTransactionsForBlockchain trans = new getTransactionsForBlockchain();
+		for (int i = 0; i < trans.getSenderList().size(); i++) {
+			JSONObject json = TransactionManual(trans.getAmountList().get(i).toString(), trans.getSenderList().get(i), trans.getSenderPvtList().get(i), trans.getReceiverList().get(i));
+			confirmationTransaction(json, trans.getAmountList().get(i).toString(), trans.getSenderList().get(i), trans.getReceiverList().get(i));
+		}
+		getCoins getAmount = new getCoins(Home.getId());
+		float betcoins = getAmount.getBetCoins();
+		betcoins += 100;
+		new sendReward(Home.getId(), betcoins);
+		new updateUnminedTransactions();
+		
+		if(motherBoardID.IDChecker(Motherboard.getWindowsMotherBoardSerialNumber())) { 
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("loginByPass.fxml"));
+			Parent root = fxmlLoader.load();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			
+			stage.initStyle(StageStyle.UNDECORATED);
+			
+			root.setOnMousePressed(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	                xOffset = stage.getX() - event.getScreenX();
+	                yOffset = stage.getY() - event.getScreenY();
+	            }
+	        });
+			
+			root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	                stage.setX(event.getScreenX() + xOffset);
+	                stage.setY(event.getScreenY() + yOffset);
+	            }
+	        });
+			
+			stage.show();
+		}else {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Main.fxml"));
+			Parent root = fxmlLoader.load();
+			Scene scene = new Scene(root);
+			stage.setScene(scene);
+			
+			stage.initStyle(StageStyle.UNDECORATED);
+			root.setOnMousePressed(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	                xOffset = stage.getX() - event.getScreenX();
+	                yOffset = stage.getY() - event.getScreenY();
+	            }
+	        });
+			
+			root.setOnMouseDragged(new EventHandler<MouseEvent>() {
+	            @Override
+	            public void handle(MouseEvent event) {
+	                stage.setX(event.getScreenX() + xOffset);
+	                stage.setY(event.getScreenY() + yOffset);
+	            }
+	        });
+			
+			stage.show();
+		}
+	}
+	
+	public static void main(String[] args) {
+		launch();
+	}
+	
+	public static String getLinkClient() {
+		return linkClient;
+	}
+	
+	public static String getLinkBlockchain() {
+		return linkBlockchain;
+	}
+}

@@ -1,0 +1,36 @@
+package DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+public class PassChanger {
+	private static final String sql = "UPDATE Utilizador "
+			+ "SET PalavraPasse = ?"
+			+ "WHERE IdUtilizador = ?";
+	
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	ResultSet resultSet = null;
+	
+	private boolean checker = false;
+	
+	public PassChanger(String pass, int IdUtilizador) throws SQLException{
+		connection = ConnectionUtil.connectdb();
+			System.out.println(pass + IdUtilizador);
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, pass);
+			preparedStatement.setString(2, String.valueOf(IdUtilizador));
+			resultSet = preparedStatement.executeQuery();
+			checker = true;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean getChecker() {
+		return checker;
+	}
+}

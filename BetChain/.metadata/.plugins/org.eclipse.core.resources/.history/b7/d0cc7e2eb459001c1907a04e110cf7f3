@@ -1,0 +1,9 @@
+package DB;
+
+public class WordsChecker {
+	public static void main(String[] args) {
+		
+	}
+	
+	
+}

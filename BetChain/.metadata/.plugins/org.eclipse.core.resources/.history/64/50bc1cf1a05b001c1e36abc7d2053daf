@@ -1,0 +1,27 @@
+package Wallet;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+public class WalletPasswordChangerController extends ImportWalletController{
+	private String username = getWordsCheckerObject().getUsername(); //agr que temos o username é mudar a password desse respetivo utilizador e depois entramos na pagina inicial da conta do utilizador
+	
+	@FXML private Button exit, changePassword;
+	@FXML private TextField pass, confPass;
+	
+	@FXML
+	private void close(ActionEvent event) {
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ImportWallet.fxml"));
+		root = fxmlLoader.load();
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+}

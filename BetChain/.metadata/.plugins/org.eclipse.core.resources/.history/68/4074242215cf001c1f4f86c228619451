@@ -1,0 +1,18 @@
+package DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import serialization.Motherboard;
+
+public class deleteIdMemorie extends Motherboard{
+	private static final String sql = "SELECT IdUtilizador FROM savepass WHERE motherboardID = ?";
+	
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	int resultSet;
+	
+	public deleteIdMemorie() {
+		
+	}
+}

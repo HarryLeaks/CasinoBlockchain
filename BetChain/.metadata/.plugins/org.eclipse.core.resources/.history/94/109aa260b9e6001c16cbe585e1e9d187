@@ -1,0 +1,29 @@
+package DB;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+public class sendCoins {
+	private static final String getAmounts = "SELECT BetCoins FROM utilizador WHERE PublicAddress = ?"; //get sender and receiver amounts
+	private static final String updateAmounts = "UPDATE utilizador SET BetCoins = ? WHERE PublicAddress = ?"; //update the sender and receiver amounts
+	private static final String idBeforeTransaction = "INSERT INTO beforegametransaction ";
+	private static final String makeTransaction = "INSERT INTO transactions"; //insert unmined transaction
+
+	Connection connection = null;
+	PreparedStatement preparedStatement = null;
+	int resultSet;
+	
+	public sendCoins(String senderAddr, String receiverAddr, float amount){
+		connection = ConnectionUtil.connectdb();
+		
+		try {
+			preparedStatement = connection.prepareStatement(sql);
+			preparedStatement.setString(1, pass);
+			preparedStatement.setInt(2, id);
+			resultSet = preparedStatement.executeUpdate();
+			preparedStatement.close();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}

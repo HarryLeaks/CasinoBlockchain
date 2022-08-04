@@ -1,0 +1,42 @@
+package Wallet;
+import java.sql.SQLException;
+
+import DB.getTransactionTable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+
+public class MineRewardController {	
+	@FXML
+	private TableView<Transaction> tableNotValidated = new TableView<Transaction>();
+	@FXML
+	private TableColumn<Transaction, String> SenderCol = new TableColumn<Transaction,String>();
+	@FXML
+	private TableColumn<Transaction, String> ReceiverCol = new TableColumn<Transaction,String>();
+	@FXML
+	private TableColumn<Transaction, Float> AmountCol = new TableColumn<Transaction,Float>();
+	@FXML
+	private TableColumn<Transaction, String> TimeStampCol = new TableColumn<Transaction,String>();
+	private ObservableList<Transaction> TransactionsList = FXCollections.observableArrayList<Transaction>();
+	
+	public MineRewardController() throws SQLException {
+		getTransactionTable getTable = new getTransactionTable();		
+		for(int i = 0; i < getTable.getSenderList().size(); i++) {
+			TransactionsList.add(new Transaction(
+					getTable.getSenderList().get(i),
+					getTable.getReceiverList().get(i),
+					getTable.getAmountList().get(i),
+					getTable.getTimeStampList().get(i)
+			));
+		}
+				
+		SenderCol.setCellValueFactory(new PropertyValueFactory<>("Sender"));
+		ReceiverCol.setCellValueFactory(new PropertyValueFactory<>("Receiver"));
+		AmountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+		TimeStampCol.setCellValueFactory(new PropertyValueFactory<>("TimeStamp"));
+		tableNotValidated.setItems(TransactionsList);
+	}
+}

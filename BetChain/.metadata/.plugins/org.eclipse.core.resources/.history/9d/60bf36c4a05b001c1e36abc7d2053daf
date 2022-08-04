@@ -1,0 +1,12 @@
+package Wallet;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+
+public class WalletPasswordChangerController extends ImportWalletController{
+	private String username = getWordsCheckerObject().getUsername(); //agr que temos o username é mudar a password desse respetivo utilizador e depois entramos na pagina inicial da conta do utilizador
+	
+	@FXML private Button exit, changePassword;
+	@FXML private TextField pass, confPass;
+}
